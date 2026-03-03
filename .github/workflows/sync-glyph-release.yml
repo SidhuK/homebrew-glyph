@@ -1,0 +1,47 @@
+name: Sync Glyph Release
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - glyph_release_published
+  schedule:
+    - cron: "17 * * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out tap repo
+        uses: actions/checkout@v4
+
+      - name: Set up Git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Update cask from latest Glyph release
+        env:
+          SOURCE_OWNER: SidhuK
+          SOURCE_REPO: Glyph
+          APP_NAME: Glyph
+          APP_BUNDLE_NAME: Glyph.app
+          ASSET_PATTERN: 'Glyph[._-].*\.(dmg|zip)$|Glyph\.(dmg|zip)$'
+          AUTO_UPDATES: "true"
+          REQUIRES_ARM64: "true"
+        run: ./scripts/update-cask.sh
+
+      - name: Commit and push cask changes
+        run: |
+          if git diff --quiet; then
+            echo "No cask changes detected."
+            exit 0
+          fi
+
+          git add Casks/glyph.rb
+          git commit -m "Update glyph cask"
+          git push
