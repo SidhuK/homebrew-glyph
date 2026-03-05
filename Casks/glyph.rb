@@ -1,8 +1,8 @@
 cask "glyph" do
-  version "0.1.31"
-  sha256 "00af268c6d975c6671f399559a28e52975212db160593a475320948deb5f2704"
+  version "0.1.33"
+  sha256 "44f660ee56b483a7d7cfb1c13e719ce53093de59c03fd706eed244d242c18e8b"
 
-  url "https://github.com/SidhuK/Glyph/releases/download/v0.1.31/Glyph_0.1.31_aarch64.dmg",
+  url "https://github.com/SidhuK/Glyph/releases/download/v0.1.33/Glyph_0.1.33_aarch64.dmg",
       verified: "github.com/SidhuK/Glyph/"
   name "Glyph"
   desc "Glyph desktop app"
