@@ -74,6 +74,10 @@ trap cleanup EXIT
 curl --fail --location --silent --show-error "${asset_url}" --output "${download_path}"
 sha256="$(shasum -a 256 "${download_path}" | awk '{print $1}')"
 
+# brew audit treats a url without #{version} interpolation as unversioned.
+version_token='#{version}'
+asset_url="${asset_url//"${version}"/${version_token}}"
+
 cat > "${CASK_PATH}" <<EOF
 cask "${CASK_TOKEN}" do
   version "${version}"
