@@ -79,8 +79,7 @@ cask "${CASK_TOKEN}" do
   version "${version}"
   sha256 "${sha256}"
 
-  url "${asset_url}",
-      verified: "github.com/${SOURCE_SLUG}/"
+  url "${asset_url}"
   name "${APP_NAME}"
   desc "${APP_NAME} desktop app"
   homepage "${SOURCE_HTML_URL}"
